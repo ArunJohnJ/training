@@ -28,7 +28,7 @@ function updateWordCount() {
 function processText() {
     const inputText = document.getElementById('inputText').value;
     const tamilTransformer = new TamilTransformer(inputText);
-    const collect = splitStrings.map(word => tamilTransformer.transform());
+    const collect = tamilTransformer.transform();
     document.getElementById('outputText').value = collect;
 }
 
