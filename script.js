@@ -1,27 +1,16 @@
 class MemoryTraining {
-    replaceWithDashes(input) {
-        let result = '';
-        let newWord = true;
+   const regex = /[\u0b80-\u0bff][\u0bbe-\u0bcd\u0bd7]*[\u0b80-\u0bff\u0bbe-\u0bcd\u0bd7]*/gu;
 
-        // Regular expression to match the first Tamil character of each word
-        const regex = /\b([\u0b80-\u0bff][\u0bbe-\u0bcd\u0bd7]?)/gu;
-
-        let match;
-        let index = 0;
-
-        while ((match = regex.exec(input)) !== null) {
-            // Append non-Tamil characters before the match
-            result += input.substring(index, match.index);
-            // Append the matched Tamil character or sequence
-            result += match[1];
-            // Update index to continue from the end of the match
-            index = regex.lastIndex;
+    replaceWithDashes(word) {
+        if (word.length > 1) {
+            return word[0] + word[1] + '-'.repeat(word.length - 2);
         }
+        return word;
+    }
 
-        // Append any remaining non-Tamil characters after the last match
-        result += input.substring(index);
-
-        return result.trim(); // Trim extra spaces at the beginning and end
+    // Method to perform the transformation on the input string
+    transform() {
+        return this.input.replace(this.regex, (match) => this.transformWord(match));
     }
 }
 
