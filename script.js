@@ -52,3 +52,9 @@ function copyToClipboard() {
         copyNotification.style.display = 'none';
     }, 2000);
 }
+
+function clearText() {
+    document.getElementById('inputText').value = '';
+    document.getElementById('outputText').value = '';
+    document.getElementById('wordCount').textContent = 'Words: 0';
+}
