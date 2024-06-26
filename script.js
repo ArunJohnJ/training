@@ -5,12 +5,13 @@ class MemoryTraining {
 
         for (let i = 0; i < input.length; i++) {
             const c = input[i];
-            if (/\p{L}/u.test(c)) { // Match any kind of letter
+            // Check if the character is a letter in any script
+            if (/\p{L}/u.test(c)) {
                 if (newWord) {
                     result += c;
                     newWord = false;
                 } else {
-                    result += ' _ ' + c; // Add space and then the letter
+                    result += ' _ ';
                 }
             } else {
                 result += c;
