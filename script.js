@@ -10,7 +10,7 @@ class MemoryTraining {
                     result += c;
                     newWord = false;
                 } else {
-                    result += '_ ';
+                    result += ' _ ';
                 }
             } else {
                 result += c;
