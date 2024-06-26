@@ -1,4 +1,4 @@
-class MemoryTraining {
+class TamilTransformer {
     constructor(input) {
         this.input = input;
         // Define the regex to match each Tamil word, including standalone vowels and complex characters
@@ -6,9 +6,9 @@ class MemoryTraining {
     }
 
     // Function to transform each matched Tamil word
-    replaceWithDashes(word) {
+    transformWord(word) {
         if (word.length > 1) {
-            return word.slice(0, 2) + '-'.repeat(word.length - 2);
+            return word.slice(0, 1) + '-'.repeat(word.length - 1);
         }
         return word;
     }
@@ -19,8 +19,6 @@ class MemoryTraining {
     }
 }
 
-const memoryTraining = new MemoryTraining();
-
 function updateWordCount() {
     const text = document.getElementById('inputText').value;
     const wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
@@ -29,8 +27,8 @@ function updateWordCount() {
 
 function processText() {
     const inputText = document.getElementById('inputText').value;
-    const splitStrings = inputText.split(" ");
-    const collect = splitStrings.map(word => memoryTraining.replaceWithDashes(word)).join(" ");
+    const tamilTransformer = new TamilTransformer(inputText);
+    const collect = splitStrings.map(word => tamilTransformer.transform());
     document.getElementById('outputText').value = collect;
 }
 
