@@ -5,6 +5,7 @@ class MemoryTraining {
 
         for (let i = 0; i < input.length; i++) {
             const c = input[i];
+            
             // Check if the character is a letter in any script
             if (/\p{L}/u.test(c)) {
                 if (newWord) {
