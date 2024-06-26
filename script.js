@@ -3,23 +3,25 @@ class MemoryTraining {
         let result = '';
         let newWord = true;
 
-        for (let i = 0; i < input.length; i++) {
-            const c = input[i];
-            
-            // Check if the character is a letter in any script
-            if (/\p{L}/u.test(c)) {
-                if (newWord) {
-                    result += c;
-                    newWord = false;
-                } else {
-                    result += '-';
-                }
-            } else {
-                result += c;
-                newWord = true;
-            }
+        // Regular expression to match the first Tamil character of each word
+        const regex = /\b([\u0b80-\u0bff][\u0bbe-\u0bcd\u0bd7]?)/gu;
+
+        let match;
+        let index = 0;
+
+        while ((match = regex.exec(input)) !== null) {
+            // Append non-Tamil characters before the match
+            result += input.substring(index, match.index);
+            // Append the matched Tamil character or sequence
+            result += match[1];
+            // Update index to continue from the end of the match
+            index = regex.lastIndex;
         }
-        return result;
+
+        // Append any remaining non-Tamil characters after the last match
+        result += input.substring(index);
+
+        return result.trim(); // Trim extra spaces at the beginning and end
     }
 }
 
