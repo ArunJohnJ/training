@@ -5,12 +5,12 @@ class MemoryTraining {
 
         for (let i = 0; i < input.length; i++) {
             const c = input[i];
-            if (/[a-zA-Z]/.test(c)) {
+            if (/\p{L}/u.test(c)) { // Match any kind of letter
                 if (newWord) {
                     result += c;
                     newWord = false;
                 } else {
-                    result += ' _ ';
+                    result += ' _ ' + c; // Add space and then the letter
                 }
             } else {
                 result += c;
