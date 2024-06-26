@@ -10,7 +10,7 @@ class MemoryTraining {
                     result += c;
                     newWord = false;
                 } else {
-                    result += '_';
+                    result += '_ ';
                 }
             } else {
                 result += c;
@@ -41,5 +41,13 @@ function copyToClipboard() {
     outputText.select();
     outputText.setSelectionRange(0, 99999); // For mobile devices
     document.execCommand("copy");
-    alert("Copied to clipboard: " + outputText.value);
+
+    // Show copy notification
+    const copyNotification = document.getElementById('copyNotification');
+    copyNotification.style.display = 'block';
+    
+    // Hide notification after 2 seconds
+    setTimeout(() => {
+        copyNotification.style.display = 'none';
+    }, 2000);
 }
