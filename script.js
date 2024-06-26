@@ -12,7 +12,7 @@ class MemoryTraining {
                     result += c;
                     newWord = false;
                 } else {
-                    result += ' _';
+                    result += '-';
                 }
             } else {
                 result += c;
