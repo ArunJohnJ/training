@@ -1,9 +1,14 @@
 class MemoryTraining {
-   const regex = /[\u0b80-\u0bff][\u0bbe-\u0bcd\u0bd7]*[\u0b80-\u0bff\u0bbe-\u0bcd\u0bd7]*/gu;
+    constructor(input) {
+        this.input = input;
+        // Define the regex to match each Tamil word, including standalone vowels and complex characters
+        this.regex = /[\u0b80-\u0bff\u0bbe-\u0bcd\u0bd7]+/gu;
+    }
 
+    // Function to transform each matched Tamil word
     replaceWithDashes(word) {
         if (word.length > 1) {
-            return word[0] + word[1] + '-'.repeat(word.length - 2);
+            return word.slice(0, 2) + '-'.repeat(word.length - 2);
         }
         return word;
     }
