@@ -4,15 +4,36 @@ function updateWordCount() {
     document.getElementById('wordCount').textContent = `Words: ${wordCount}`;
 }
 
-function transformWord(word) {
-    // Use Intl.Segmenter to split the word into grapheme clusters.
-    const segmenter = new Intl.Segmenter('ta', { granularity: 'grapheme' });
-    const graphemes = Array.from(segmenter.segment(word), segment => segment.segment);
-    
-    if (graphemes.length > 1) {
-        return graphemes[0] + '-'.repeat(graphemes.length - 1);
+function processText() {
+    const inputText = document.getElementById('inputText').value;
+    const tamilTransformer = new TamilTransformer(inputText);
+    const collect = tamilTransformer.transform();
+    document.getElementById('outputText').value = collect;
+}
+
+class TamilTransformer {
+    constructor(input) {
+        this.input = input;
+        // Updated regex to match sequences of letters (any language) and combining marks.
+        this.regex = /[\p{L}\p{M}]+/gu;
     }
-    return word;
+
+    // Function to transform each matched word
+    transformWord(word) {
+        // Use Intl.Segmenter without specifying a locale so it works for any language.
+        const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+        const graphemes = Array.from(segmenter.segment(word), segment => segment.segment);
+
+        if (graphemes.length > 1) {
+            return graphemes[0] + '-'.repeat(graphemes.length - 1);
+        }
+        return word;
+    }
+
+    // Method to perform the transformation on the input string
+    transform() {
+        return this.input.replace(this.regex, (match) => this.transformWord(match));
+    }
 }
 
 
@@ -25,7 +46,7 @@ function copyToClipboard() {
     // Show copy notification
     const copyNotification = document.getElementById('copyNotification');
     copyNotification.style.display = 'block';
-    
+
     // Hide notification after 2 seconds
     setTimeout(() => {
         copyNotification.style.display = 'none';
